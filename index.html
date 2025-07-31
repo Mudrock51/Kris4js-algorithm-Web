@@ -41,8 +41,6 @@
       
     
     
-      <link rel="stylesheet" href="stylesheets/arithmatex.css">
-    
     <script>__md_scope=new URL(".",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
     
       
@@ -385,18 +383,16 @@
 
   <h1>Home</h1>
 
-<h2 id="dynamic-programming">动态规划 Dynamic Programming</h2>
-<h3 id="dp">DP 入门</h3>
-<h4 id="_1">打家劫舍</h4>
-<blockquote>
-<p>!!! important</p>
-<p>打家劫舍类问题是动态规划的入门型问题，主要思路就是「<strong>选 OR 不选</strong>」.</p>
-<ul>
-<li>如果选择第 <span class="arithmatex">\(i\)</span> 个元素，那么第 <span class="arithmatex">\(i\)</span> - 1 个元素无法选择，只能从第 <span class="arithmatex">\(i\)</span> - 2 个元素中选取</li>
-<li>如果不选择第 <span class="arithmatex">\(i\)</span> 个元素，那么可以选择第 <span class="arithmatex">\(<span class="arithmatex">\(i\)</span>\)</span> - 1 个元素。</li>
-</ul>
-</blockquote>
-<p>我们定义 <span class="arithmatex">\(<span class="arithmatex">\(f[i]\)</span>\)</span>  表示前 <span class="arithmatex">\(<span class="arithmatex">\(i\)</span>\)</span> 个 元素可以获得的最大值。</p>
+<h2 id="dynamic-programming">动态规划 Dynamic Programming<a class="headerlink" href="#dynamic-programming" title="Permanent link">&para;</a></h2>
+<h3 id="dp">DP 入门<a class="headerlink" href="#dp" title="Permanent link">&para;</a></h3>
+<h4 id="_1">打家劫舍<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h4>
+<div class="admonition important">
+<p class="admonition-title">Important</p>
+</div>
+<p>打家劫舍类问题是动态规划的入门型问题，主要思路就是「<strong>选 OR 不选</strong>」.
+  - 如果选择第 <span class="arithmatex"><span class="MathJax_Preview">i</span><script type="math/tex">i</script></span> 个元素，那么第 <span class="arithmatex"><span class="MathJax_Preview">i</span><script type="math/tex">i</script></span> - 1 个元素无法选择，只能从第 <span class="arithmatex"><span class="MathJax_Preview">i</span><script type="math/tex">i</script></span> - 2 个元素中选取
+  - 如果不选择第 <span class="arithmatex"><span class="MathJax_Preview">i</span><script type="math/tex">i</script></span> 个元素，那么可以选择第 <span class="arithmatex"><span class="MathJax_Preview">i</span><script type="math/tex">i</script></span> - 1 个元素。</p>
+<p>我们定义 <span class="arithmatex"><span class="MathJax_Preview">f[i]</span><script type="math/tex">f[i]</script></span>  表示前 <span class="arithmatex"><span class="MathJax_Preview">i</span><script type="math/tex">i</script></span> 个 元素可以获得的最大值。</p>
 <p>那么：</p>
 <ol>
 <li>选择第 <code>i</code> 个元素，<code>f[i] = max(f[i - 1], f[i - 2] + nums[i])</code>；</li>
@@ -408,18 +404,20 @@
 <li>有两个元素时，获得的最大值一定是 <code>max(nums[0], nums[1])</code>；</li>
 </ul>
 <p>标准的打家劫舍代码如下：</p>
-<pre><code class="language-cpp">// 空间优化
-int f0 = 0;
-int f1 = 0;
-for (int x : nums) {
-    int new_f = max(f1, f0 + x); // 为了避免覆盖原来的 f1
-    f0 = f1;
-    f1 = new_f;
-}
-return f1;
-</code></pre>
+<div class="highlight"><pre><span></span><code><span class="c1">// 空间优化</span>
+<span class="kt">int</span><span class="w"> </span><span class="n">f0</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="kt">int</span><span class="w"> </span><span class="n">f1</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">nums</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">new_f</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">max</span><span class="p">(</span><span class="n">f1</span><span class="p">,</span><span class="w"> </span><span class="n">f0</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">x</span><span class="p">);</span><span class="w"> </span><span class="c1">// 为了避免覆盖原来的 f1</span>
+<span class="w">    </span><span class="n">f0</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">f1</span><span class="p">;</span>
+<span class="w">    </span><span class="n">f1</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">new_f</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="k">return</span><span class="w"> </span><span class="n">f1</span><span class="p">;</span>
+</code></pre></div>
 <blockquote>
-<p>!!! tip</p>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+</div>
 <p>打家劫舍进阶题型：</p>
 <ul>
 <li>位置上的「选 OR 不选」转变为元素值的「选 OR 不选」——值域问题；</li>
@@ -468,7 +466,7 @@ return f1;
 </tr>
 </tbody>
 </table>
-<h4 id="_2">最大子数组和</h4>
+<h4 id="_2">最大子数组和<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h4>
 <blockquote>
 <p>[!important]</p>
 <p><strong>最大子数组和</strong> 问题有两种解决方法：</p>
@@ -479,22 +477,22 @@ return f1;
 </blockquote>
 <hr />
 <p>1️⃣ 动态规划思路</p>
-<pre><code class="language-java">// 1.定义 f [i] 表示以 a [i] 结尾的最大子数组和
-int[] f = new int[n];
-// 2.边界条件: 子数组不能够为空集
-f[0] = nums[0];
-int ans = f[0]; // 枚举记录最大 f [i]
-for (int i = 1; i &lt; n; i++) {
-    // 3.状态转移方程
-    f[i] = Math.max(f[i-1], 0) + a[i]; // 以 a [i] 结尾表示必须选择
-    ans = Math.max(ans, f[i]);
-}
-return ans
-</code></pre>
+<div class="highlight"><pre><span></span><code><span class="c1">// 1.定义 f [i] 表示以 a [i] 结尾的最大子数组和</span>
+<span class="kt">int</span><span class="o">[]</span><span class="w"> </span><span class="n">f</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="kt">int</span><span class="o">[</span><span class="n">n</span><span class="o">]</span><span class="p">;</span>
+<span class="c1">// 2.边界条件: 子数组不能够为空集</span>
+<span class="n">f</span><span class="o">[</span><span class="mi">0</span><span class="o">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">nums</span><span class="o">[</span><span class="mi">0</span><span class="o">]</span><span class="p">;</span>
+<span class="kt">int</span><span class="w"> </span><span class="n">ans</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">f</span><span class="o">[</span><span class="mi">0</span><span class="o">]</span><span class="p">;</span><span class="w"> </span><span class="c1">// 枚举记录最大 f [i]</span>
+<span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">n</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="o">++</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="c1">// 3.状态转移方程</span>
+<span class="w">    </span><span class="n">f</span><span class="o">[</span><span class="n">i</span><span class="o">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Math</span><span class="p">.</span><span class="na">max</span><span class="p">(</span><span class="n">f</span><span class="o">[</span><span class="n">i</span><span class="o">-</span><span class="mi">1</span><span class="o">]</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">a</span><span class="o">[</span><span class="n">i</span><span class="o">]</span><span class="p">;</span><span class="w"> </span><span class="c1">// 以 a [i] 结尾表示必须选择</span>
+<span class="w">    </span><span class="n">ans</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Math</span><span class="p">.</span><span class="na">max</span><span class="p">(</span><span class="n">ans</span><span class="p">,</span><span class="w"> </span><span class="n">f</span><span class="o">[</span><span class="n">i</span><span class="o">]</span><span class="p">);</span>
+<span class="p">}</span>
+<span class="k">return</span><span class="w"> </span><span class="n">ans</span>
+</code></pre></div>
 <hr />
 <p>2️⃣ 前缀和思路</p>
-<pre><code class="language-java">
-</code></pre>
+<div class="highlight"><pre><span></span><code>
+</code></pre></div>
 <hr />
 
 
@@ -550,8 +548,6 @@ return ans
       <script src="assets/javascripts/bundle.50899def.min.js"></script>
       
         <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
-      
-        <script src="js/mathjax-config.js"></script>
       
     
   </body>
