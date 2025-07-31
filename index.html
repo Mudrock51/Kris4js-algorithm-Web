@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+  <meta charset="UTF-8">
+  <title>动态规划笔记</title>
+  <script type="text/javascript" async
+    src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js">
+  </script>
+  <style>
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+      line-height: 1.6;
+      padding: 2em;
+      max-width: 800px;
+      margin: auto;
+      background-color: #fdfdfd;
+    }
+    code {
+      background-color: #f3f3f3;
+      padding: 2px 4px;
+      border-radius: 4px;
+    }
+    pre {
+      background-color: #f3f3f3;
+      padding: 1em;
+      overflow-x: auto;
+      border-radius: 4px;
+    }
+    table {
+      border-collapse: collapse;
+      width: 100%;
+    }
+    th, td {
+      border: 1px solid #ccc;
+      padding: 0.5em;
+      text-align: left;
+    }
+    blockquote {
+      background-color: #eef;
+      padding: 0.8em;
+      border-left: 4px solid #99f;
+      margin: 1em 0;
+    }
+  </style>
+</head>
+<body>
+
+<h2>动态规划 Dynamic Programming</h2>
+
+<h3>DP 入门</h3>
+
+<h4>打家劫舍</h4>
+<blockquote>
+  打家劫舍类问题是动态规划的入门型问题，主要思路就是「<strong>选 OR 不选</strong>」。<br>
+  - 如果选择第 \( i \) 个元素，那么第 \( i-1 \) 个元素无法选择，只能从第 \( i-2 \) 个元素中选取<br>
+  - 如果不选择第 \( i \) 个元素，那么可以选择第 \( i-1 \) 个元素。
+</blockquote>
+
+<p>我们定义 \( f[i] \) 表示前 \( i \) 个元素可以获得的最大值。</p>
+
+<p>状态转移方程：</p>
+<ul>
+  <li>选择第 \( i \) 个元素：\( f[i] = f[i-2] + nums[i] \)</li>
+  <li>不选择第 \( i \) 个元素：\( f[i] = f[i-1] \)</li>
+  <li>最终状态为：\( f[i] = \max(f[i - 1], f[i - 2] + nums[i]) \)</li>
+</ul>
+
+<p>初始条件：</p>
+<ul>
+  <li>\( f[0] = nums[0] \)</li>
+  <li>\( f[1] = \max(nums[0], nums[1]) \)</li>
+</ul>
+
+<pre><code class="language-cpp">// 空间优化版
+int f0 = 0;
+int f1 = 0;
+for (int x : nums) {
+    int new_f = max(f1, f0 + x); // 为了避免覆盖原来的 f1
+    f0 = f1;
+    f1 = new_f;
+}
+return f1;
+</code></pre>
+
+<blockquote>
+  <strong>打家劫舍进阶题型：</strong><br>
+  - 位置上的「选 OR 不选」转变为元素值的「选 OR 不选」——值域问题；<br>
+  - 值域问题下 \( 10^9 \) 数据的离散化思路；
+</blockquote>
+
+<table>
+  <thead>
+    <tr><th>#</th><th>Title</th><th>Solution</th><th>Difficulty</th></tr>
+  </thead>
+  <tbody>
+    <tr><td>198</td><td><a href="https://leetcode.cn/problems/house-robber/">打家劫舍</a></td><td></td><td>Medium-</td></tr>
+    <tr><td>213</td><td><a href="https://leetcode.cn/problems/house-robber-ii/">打家劫舍 II</a></td><td></td><td>Medium</td></tr>
+    <tr><td>2320</td><td><a href="https://leetcode.cn/problems/count-number-of-ways-to-place-houses/">统计放置房子的方式数</a></td><td><a href="./LC/Solutions/java/2320.java">java</a></td><td>Medium(1608)</td></tr>
+    <tr><td>740</td><td><a href="https://leetcode.cn/problems/delete-and-earn/">删除并获得点数</a></td><td><a href="./LC/Solutions/java/740.java">java</a></td><td>Medium</td></tr>
+    <tr><td>3186</td><td><a href="https://leetcode.cn/problems/maximum-total-damage-with-spell-casting/">施咒的最大总伤害</a></td><td><a href="./LC/Solutions/java/3186.java">java</a></td><td>Medium+(1841)</td></tr>
+  </tbody>
+</table>
+
+<h4>最大子数组和</h4>
+
+<blockquote>
+  <strong>最大子数组和</strong> 问题有两种解决方法：
+  <ol>
+    <li>定义 \( f[i] \) 表示以 \( a[i] \) 结尾的最大子数组和。状态转移：\( f[i] = \max(f[i - 1], 0) + a[i] \)</li>
+    <li>使用前缀和的思路，转换为买卖股票问题。</li>
+  </ol>
+</blockquote>
+
+<p>动态规划代码：</p>
+<pre><code class="language-java">// 1. 定义 f[i] 表示以 a[i] 结尾的最大子数组和
+int[] f = new int[n];
+f[0] = nums[0];
+int ans = f[0];
+for (int i = 1; i < n; i++) {
+    f[i] = Math.max(f[i-1], 0) + a[i];
+    ans = Math.max(ans, f[i]);
+}
+return ans;
+</code></pre>
+
+<p>前缀和思路（待补充）</p>
+
+</body>
+</html>
