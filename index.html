@@ -388,11 +388,11 @@
 <h4 id="_1">打家劫舍<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h4>
 <div class="admonition important">
 <p class="admonition-title">Important</p>
-</div>
 <p>打家劫舍类问题是动态规划的入门型问题，主要思路就是「<strong>选 OR 不选</strong>」.
-  - 如果选择第 <span class="arithmatex"><span class="MathJax_Preview">i</span><script type="math/tex">i</script></span> 个元素，那么第 <span class="arithmatex"><span class="MathJax_Preview">i</span><script type="math/tex">i</script></span> - 1 个元素无法选择，只能从第 <span class="arithmatex"><span class="MathJax_Preview">i</span><script type="math/tex">i</script></span> - 2 个元素中选取
-  - 如果不选择第 <span class="arithmatex"><span class="MathJax_Preview">i</span><script type="math/tex">i</script></span> 个元素，那么可以选择第 <span class="arithmatex"><span class="MathJax_Preview">i</span><script type="math/tex">i</script></span> - 1 个元素。</p>
-<p>我们定义 <span class="arithmatex"><span class="MathJax_Preview">f[i]</span><script type="math/tex">f[i]</script></span>  表示前 <span class="arithmatex"><span class="MathJax_Preview">i</span><script type="math/tex">i</script></span> 个 元素可以获得的最大值。</p>
+- 如果选择第 <span class="arithmatex">\(i\)</span> 个元素，那么第 <span class="arithmatex">\(i\)</span> - 1 个元素无法选择，只能从第 <span class="arithmatex">\(i\)</span> - 2 个元素中选取
+- 如果不选择第 <span class="arithmatex">\(i\)</span> 个元素，那么可以选择第 <span class="arithmatex">\(i\)</span> - 1 个元素。</p>
+</div>
+<p>我们定义 <span class="arithmatex">\(f[i]\)</span>  表示前 <span class="arithmatex">\(i\)</span> 个 元素可以获得的最大值。</p>
 <p>那么：</p>
 <ol>
 <li>选择第 <code>i</code> 个元素，<code>f[i] = max(f[i - 1], f[i - 2] + nums[i])</code>；</li>
@@ -417,12 +417,10 @@
 <blockquote>
 <div class="admonition tip">
 <p class="admonition-title">Tip</p>
+<p>打家劫舍进阶题型：
+- 位置上的「选 OR 不选」转变为元素值的「选 OR 不选」——值域问题；
+- 值域问题下 <code>1e9</code> 数据的离散化思路；</p>
 </div>
-<p>打家劫舍进阶题型：</p>
-<ul>
-<li>位置上的「选 OR 不选」转变为元素值的「选 OR 不选」——值域问题；</li>
-<li>值域问题下 <code>1e9</code> 数据的离散化思路；</li>
-</ul>
 </blockquote>
 <table>
 <thead>
